@@ -1,0 +1,24 @@
+﻿@model TestApp2.Models.BoolHolder
+
+@{
+
+    if (Model.UserGotRequest)
+    {
+                <li>@Html.ActionLink(Resources.Resource.Min_Profil, "Details", "Profile")</li>
+                <li>@Html.ActionLink(Resources.Resource.Sök_Användare, "Index", "Profile")</li>
+                <li>@Html.ActionLink(Resources.Resource.Mina_Vänner, "FriendList", "Friend")</li>
+                <li>@Html.ActionLink(Resources.Resource.Vänförfrågningar, "requestList", "FriendRequest")</li>
+               
+                <li>@Html.ActionLink("Du har vänförfrågan", "requestList", "FriendRequest", null,  new { @style = "color:red;" })</li>
+    }
+    else
+    {
+                <li>@Html.ActionLink(Resources.Resource.Min_Profil, "Details", "Profile")</li>
+                <li>@Html.ActionLink(Resources.Resource.Sök_Användare, "Index", "Profile")</li>
+                <li>@Html.ActionLink(Resources.Resource.Mina_Vänner, "FriendList", "Friend")</li>
+                <li>@Html.ActionLink(Resources.Resource.Vänförfrågningar, "requestList", "FriendRequest")</li>
+    }
+
+}
+
+

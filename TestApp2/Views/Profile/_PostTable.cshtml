@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TestApp2.ViewModel.Post.PostListViewModel>
+
+<table>
+    <tr>
+        <th>
+            Text
+        </th>
+        <th>
+            From
+        </th>
+        <th>
+            Date
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Text
+            </td>
+            <td>
+                @item.FromName
+            </td>
+            <td>
+                @item.Date
+            </td>
+        </tr>
+    }
+
+</table>
+
+<style>
+    th {
+        padding-right: 95px;
+    }
+    td {
+        padding-right: 95px;
+    }
+</style>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TestApp2.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Colourdating";
+}
+
+@section Scripts
+{
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+}
+
+
+<h2>Startsida</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Medlemmar")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Action("ProfilBild","Profile", new { id = item.Id })" id="startsidaBild" />
+            </td>
+
+      @if (User.Identity.IsAuthenticated)
+      {
+            <td>
+                @Html.ActionLink(item.Email, "FriendDetails", "Friend", new { id = item.Id }, null)
+            </td>
+      }
+      else
+      {
+            <td>
+                @Html.ActionLink(item.Email, "Register", "Account", new { id = item.Id }, null)
+            </td>
+             }
+
+        </tr>
+    }
+
+</table>

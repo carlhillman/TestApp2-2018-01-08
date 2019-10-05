@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TestApp2.Models.Post>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime)
+        </th>
+        <th></th>
+    </tr>
+   
+@foreach (var item in Model) {
+    
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTime)
+        </td>
+    </tr>
+}
+
+</table>

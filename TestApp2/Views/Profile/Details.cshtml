@@ -1,0 +1,134 @@
+﻿@model TestApp2.ViewModel.ProfilepageDetailsViewModel 
+@using Microsoft.AspNet.Identity;
+
+
+@section Scripts
+{
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+}
+
+@{
+    ViewBag.Title = "Details";
+}
+<script>
+        function SendPost()
+        {
+        var text = $('#Text').val();
+        var Sender = '@User.Identity.GetUserId()';
+        var Receiver = '@Model.Id';
+        var newPost = { From: Sender, To: Receiver, Text: text };
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/Posts/',
+                data: JSON.stringify(newPost),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $('#Text').val('');
+                    UpdatePosts();
+                },
+                error: function (data) {
+                    alert("error");
+                }
+            });
+        };
+
+
+        function UpdatePosts()
+        {
+            var id = '@User.Identity.GetUserId()';
+
+            $.ajax({
+                type: "GET",
+                url: "/Friend/GetPosts/" + id,
+                success:
+                function (html)
+                {
+                    $("#postDiv").html(html);
+                },
+                error:
+                function ()
+                {
+                    alert("error");
+                }
+            });
+        };
+
+</script>
+
+<div>
+    <h4>@Resources.Resource.Min_Profil</h4>
+    <hr/>
+    <dl class="dl-horizontal">   
+      
+        <dd>
+            <img src="@Url.Action("ProfilBild", new { id = Model.Id })" id="profilBild" />
+        </dd>     
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kön)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kön)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Synlighet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Synlighet)
+        </dd>
+        
+
+     </dl>
+
+</div>
+
+<div class="container, left">
+
+    <div class="form-group">
+        <label for="comment"></label>
+        <textarea class="form-control" rows="5" id="Text"></textarea>
+        <button class="btn btn-default" onclick="SendPost()">Skriv inlägg</button>
+    </div>
+
+</div>
+
+
+<div id="postDiv">
+    @Html.Partial("_PostTable", Model.Posts)
+</div>
+
+
+<p>
+    @Html.ActionLink("Ändra Profilinställningar", "Edit", new { /* id = Model.PrimaryKey */ }) 
+</p>
+        
